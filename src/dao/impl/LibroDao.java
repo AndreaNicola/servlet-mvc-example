@@ -23,6 +23,8 @@ public class LibroDao extends AbstractDao implements ILibroDao {
     private final String NEXT_ID_LIBRO = "select max(id) from libro";
     private final String NEXT_ID_LIBRO_GENERE = "select max(id) from libro_genere";
 
+    private final String LIST_BY_AUTORE = "select id, titolo, descrizione, autore_id from libro where autore_id=?";
+
     @Override
     public Collection<Libro> list() {
 
@@ -33,14 +35,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
                 ResultSet rs = ps.executeQuery()
         ) {
 
-            while (rs.next()) {
-                Libro libro = new Libro();
-                libro.setAutoreId(rs.getLong("autore_id"));
-                libro.setDescrizione(rs.getString("descrizione"));
-                libro.setId(rs.getLong("id"));
-                libro.setTitolo(rs.getString("titolo"));
-                result.add(libro);
-            }
+            getElements(rs, result);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -90,7 +85,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
     public void create(Libro book) {
         try (
                 Connection c = getConnection();
-                PreparedStatement ps1 = c.prepareStatement(INSERT);
+                PreparedStatement ps1 = c.prepareStatement(INSERT)
         ) {
             ps1.setLong(1, nextId(NEXT_ID_LIBRO));
             ps1.setString(2, book.getTitolo());
@@ -290,4 +285,36 @@ public class LibroDao extends AbstractDao implements ILibroDao {
             }
         }
     }
+
+    @Override
+    public Collection<Libro> listByAutore(Long autoreId) {
+        Collection<Libro> result = new ArrayList<>();
+        ResultSet rs;
+        try (
+                Connection c = getConnection();
+                PreparedStatement ps = c.prepareStatement(LIST_BY_AUTORE)
+        ) {
+
+            ps.setLong(1, autoreId);
+            rs = ps.executeQuery();
+            getElements(rs, result);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    private void getElements(ResultSet rs, Collection<Libro> result) throws Exception {
+        while (rs.next()) {
+            Libro libro = new Libro();
+            libro.setAutoreId(rs.getLong("autore_id"));
+            libro.setDescrizione(rs.getString("descrizione"));
+            libro.setId(rs.getLong("id"));
+            libro.setTitolo(rs.getString("titolo"));
+            result.add(libro);
+        }
+    }
+
 }

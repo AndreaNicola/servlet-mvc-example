@@ -2,7 +2,7 @@ package controllers;
 
 import services.FactoryService;
 import services.IAutoreService;
-import services.impl.AutoreService;
+import services.ILibroService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +15,12 @@ import java.io.IOException;
 public class AuthorServlet extends HttpServlet {
 
     private final static IAutoreService AUTORE_SERVICE = FactoryService.getiAutoreService();
+    private final static ILibroService LIBRO_SERVICE = FactoryService.getiLibroService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         request.setAttribute("autore", AUTORE_SERVICE.get(id));
-        request.getRequestDispatcher("/WEB-INF/jsp/author.jsp").forward(request,response);
+        request.setAttribute("libri", LIBRO_SERVICE.listByAutore(id));
+        request.getRequestDispatcher("/WEB-INF/jsp/author.jsp").forward(request, response);
     }
 }

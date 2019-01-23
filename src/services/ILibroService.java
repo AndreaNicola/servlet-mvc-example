@@ -8,6 +8,8 @@ public interface ILibroService {
 
     Collection<Libro> list();
 
+    Collection<Libro> listByAutore(Long autoreId);
+
     Libro get(Long id);
 
     void insert(String titolo, String descrizione, Long autoreId, Collection<Long> generi);

@@ -17,6 +17,11 @@ public class LibroService implements ILibroService {
     }
 
     @Override
+    public Collection<Libro> listByAutore(Long autoreId) {
+        return I_LIBRO_DAO.listByAutore(autoreId);
+    }
+
+    @Override
     public Libro get(Long id) {
         return I_LIBRO_DAO.get(id);
     }

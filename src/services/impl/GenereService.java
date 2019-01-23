@@ -17,6 +17,11 @@ public class GenereService implements IGenereService {
     }
 
     @Override
+    public Collection<Genere> listByLibro(Long libroId) {
+        return I_GENERE_DAO.listByLibro(libroId);
+    }
+
+    @Override
     public Genere get(Long id) {
         return I_GENERE_DAO.get(id);
     }

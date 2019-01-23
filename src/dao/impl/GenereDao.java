@@ -17,6 +17,9 @@ public class GenereDao extends AbstractDao implements IGenereDao {
     private static final String UPDATE = "update genere set nome=? where id=?";
     private static final String DELETE = "delete from genere where id=?";
 
+    private static final String LIST_BY_BOOK = "select id, nome from genere where id in (select genere_id from " +
+            "libro_genere where libro_id = ?)";
+
     private final String NEXT_ID = "select max(id) from genere";
 
     @Override
@@ -28,12 +31,7 @@ public class GenereDao extends AbstractDao implements IGenereDao {
                 ResultSet rs = ps.executeQuery()
         ) {
 
-            while (rs.next()) {
-                Genere genere = new Genere();
-                genere.setId(rs.getLong("id"));
-                genere.setNome(rs.getString("nome"));
-                result.add(genere);
-            }
+            getElements(rs, result);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -116,4 +114,40 @@ public class GenereDao extends AbstractDao implements IGenereDao {
         }
     }
 
+    @Override
+    public Collection<Genere> listByLibro(Long bookId) {
+        Collection<Genere> result = new ArrayList<>();
+        ResultSet rs = null;
+        try (
+                Connection c = getConnection();
+                PreparedStatement ps = c.prepareStatement(LIST_BY_BOOK)
+        ) {
+            ps.setLong(1, bookId);
+            rs = ps.executeQuery();
+            getElements(rs, result);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private void getElements(ResultSet rs, Collection<Genere> result) throws Exception {
+        while (rs.next()) {
+            Genere genere = new Genere();
+            genere.setId(rs.getLong("id"));
+            genere.setNome(rs.getString("nome"));
+            result.add(genere);
+        }
+    }
 }
+
