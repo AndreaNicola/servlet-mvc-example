@@ -45,12 +45,24 @@
         </td>
         <td>
             <ul>
-                <li><a href="/genre?id=id">Genre 1</a></li>
+                <c:forEach var="genere" items="${generi}">
+                    <li>
+                        <a href="/genre?id=<c:out value="${genere.id}"></c:out>">
+                            <c:out value="${genere.nome}"/>
+                        </a>
+                    </li>
+                </c:forEach>
             </ul>
         </td>
         <td>
             <ul>
-                <li><a href="/book?id=id">Book 1</a></li>
+                <c:forEach var="libro" items="${libri}">
+                <li>
+                    <a href="/book?id=<c:out value="${libro.id}" />">
+                        <c:out value="${libro.titolo}" />
+                    </a>
+                </li>
+                </c:forEach>
             </ul>
         </td>
     </tr>

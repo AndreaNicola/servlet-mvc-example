@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 abstract class AbstractDao {
 
@@ -16,5 +18,33 @@ abstract class AbstractDao {
             throw new RuntimeException(e);
         }
     }
+
+    Long nextId(String sql) {
+        ResultSet rs = null;
+        Long result = 1l;
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)
+        ) {
+
+            while (rs.next()) {
+                result = result + rs.getLong(1);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return result;
+
+    }
+
 
 }
