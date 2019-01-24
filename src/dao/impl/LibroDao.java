@@ -12,7 +12,7 @@ import java.util.Collection;
 public class LibroDao extends AbstractDao implements ILibroDao {
 
     private static final String LIST = "select id, titolo, descrizione, autore_id from libro";
-    private static final String GET = "select id, titolo, descrizione, autore_id from libro where id=?";
+    private static final String GET = LIST + " where id=?";
     private static final String INSERT = "insert into libro (id, titolo, descrizione, autore_id) values (?,?,?,?)";
     private static final String UPDATE = "update libro set titolo=?, descrizione=?, autore_id=? where id=?";
     private static final String DELETE = "delete from libro where id=?";
@@ -22,8 +22,6 @@ public class LibroDao extends AbstractDao implements ILibroDao {
 
     private final String NEXT_ID_LIBRO = "select max(id) from libro";
     private final String NEXT_ID_LIBRO_GENERE = "select max(id) from libro_genere";
-
-    private final String LIST_BY_AUTORE = "select id, titolo, descrizione, autore_id from libro where autore_id=?";
 
     @Override
     public Collection<Libro> list() {
@@ -286,16 +284,15 @@ public class LibroDao extends AbstractDao implements ILibroDao {
         }
     }
 
-    @Override
-    public Collection<Libro> listByAutore(Long autoreId) {
+    private Collection<Libro> listByFk(String sql, Long fk){
         Collection<Libro> result = new ArrayList<>();
         ResultSet rs;
         try (
                 Connection c = getConnection();
-                PreparedStatement ps = c.prepareStatement(LIST_BY_AUTORE)
+                PreparedStatement ps = c.prepareStatement(sql)
         ) {
 
-            ps.setLong(1, autoreId);
+            ps.setLong(1, fk);
             rs = ps.executeQuery();
             getElements(rs, result);
 
@@ -304,6 +301,20 @@ public class LibroDao extends AbstractDao implements ILibroDao {
         }
 
         return result;
+    }
+
+    @Override
+    public Collection<Libro> listByAutore(Long autoreId) {
+        String LIST_BY_AUTORE = LIST + " where autore_id=?";
+        return listByFk(LIST_BY_AUTORE,autoreId);
+    }
+
+    @Override
+    public Collection<Libro> listByGenere(Long genereId) {
+        String LIST_BY_GENERE = "select id, titolo, descrizione, autore_id from libro where id in (select libro_id " +
+                "from " +
+                "libro_genere where genere_id = ?)";
+        return listByFk(LIST_BY_GENERE,genereId);
     }
 
     private void getElements(ResultSet rs, Collection<Libro> result) throws Exception {

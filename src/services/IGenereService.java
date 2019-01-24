@@ -19,5 +19,4 @@ public interface IGenereService {
     void delete(Long id);
 
 
-
 }

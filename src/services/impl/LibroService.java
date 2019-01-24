@@ -22,6 +22,11 @@ public class LibroService implements ILibroService {
     }
 
     @Override
+    public Collection<Libro> listByGenere(Long genereId) {
+        return I_LIBRO_DAO.listByGenere(genereId);
+    }
+
+    @Override
     public Libro get(Long id) {
         return I_LIBRO_DAO.get(id);
     }
@@ -42,7 +47,7 @@ public class LibroService implements ILibroService {
         libro.setId(id);
         libro.setDescrizione(descrizione);
         libro.setAutoreId(autoreId);
-        I_LIBRO_DAO.update(libro,generi);
+        I_LIBRO_DAO.update(libro, generi);
     }
 
     @Override

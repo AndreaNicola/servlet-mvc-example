@@ -14,6 +14,19 @@
 <body>
 <a href="/"><h1>Servlet Library</h1></a>
 <hr>
-
+<h2>Dettagli genere</h2>
+<dl>
+    <dt>Nome</dt>
+    <dd><c:out value="${genere.nome}"/></dd>
+</dl>
+<hr>
+<h3>Libri di questo genere</h3></td>
+<c:forEach items="${libri}" var="libro">
+    <p>
+        <a href="/book?id=<c:out value="${libro.id}"/>">
+            <c:out value="${libro.titolo}"/>
+        </a>
+    </p>
+</c:forEach>
 </body>
 </html>
