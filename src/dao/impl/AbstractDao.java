@@ -11,7 +11,7 @@ abstract class AbstractDao {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/libreria",
+                    "jdbc:mysql://localhost:3306/libreria?useSSL=false",
                     "libreria",
                     "libreria");
         } catch (Exception e) {
