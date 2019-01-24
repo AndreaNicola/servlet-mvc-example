@@ -1,4 +1,4 @@
-package controllers;
+package controllers.details;
 
 import models.Genere;
 import models.Libro;

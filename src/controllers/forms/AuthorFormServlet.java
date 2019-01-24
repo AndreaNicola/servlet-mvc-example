@@ -1,4 +1,4 @@
-package controllers;
+package controllers.forms;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

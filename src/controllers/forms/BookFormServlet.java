@@ -1,4 +1,4 @@
-package controllers;
+package controllers.forms;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +10,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/bookForm", name = "BookFormServlet")
 public class BookFormServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/jsp/form/bookForm.jsp").forward(request, response);
     }
 

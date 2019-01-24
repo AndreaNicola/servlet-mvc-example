@@ -1,4 +1,4 @@
-package controllers;
+package controllers.details;
 
 import services.FactoryService;
 import services.IAutoreService;
