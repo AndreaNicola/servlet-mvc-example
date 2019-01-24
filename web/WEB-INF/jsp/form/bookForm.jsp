@@ -15,7 +15,7 @@
 <a href="/"><h1>Servlet Library</h1></a>
 <hr>
 <center>
-    <form action="bookForm" method="post">
+    <form action="/<c:out value="${action}"/>" method="post">
         <table width="50%">
             <tr>
                 <td colspan="2"><h2>New book</h2></td>

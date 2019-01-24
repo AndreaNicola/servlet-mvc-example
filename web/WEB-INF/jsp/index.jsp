@@ -18,15 +18,15 @@
 <table style="width: 100%; vertical-align: top">
     <tr>
         <td>
-            <h2><a href="authorForm">Nuovo autore</a></h2>
+            <h2><a href="authorInsert">Nuovo autore</a></h2>
             <h2>Autori disponibili</h2>
         </td>
         <td>
-            <h2><a href="genreForm">Nuovo genere</a></h2>
+            <h2><a href="genreInsert">Nuovo genere</a></h2>
             <h2>Generi disponibili</h2>
         </td>
         <td>
-            <h2><a href="bookForm">Nuovo libro</a></h2>
+            <h2><a href="bookInsert">Nuovo libro</a></h2>
             <h2>Libri disponibili</h2>
         </td>
     </tr>

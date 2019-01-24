@@ -15,6 +15,9 @@
 <a href="/"><h1>Servlet Library</h1></a>
 <hr>
 <h2>Author details</h2>
+
+<a href="/authorEdit?id=<c:out value="${autore.id}" />">Edit author</a>
+
 <dl>
     <dt>Firstname</dt>
     <dd><c:out value="${autore.nome}"/></dd>

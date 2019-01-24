@@ -20,28 +20,19 @@ abstract class AbstractDao {
     }
 
     Long nextId(String sql) {
-        ResultSet rs = null;
         Long result = 1l;
         try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()
         ) {
-
             while (rs.next()) {
                 result = result + rs.getLong(1);
             }
 
         } catch (Exception e) {
-            throw new RuntimeException();
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            e.printStackTrace();
         }
-
+        
         return result;
 
     }

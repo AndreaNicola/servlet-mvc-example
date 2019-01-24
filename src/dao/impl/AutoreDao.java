@@ -92,6 +92,7 @@ public class AutoreDao extends AbstractDao implements IAutoreDao {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

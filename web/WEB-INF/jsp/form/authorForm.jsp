@@ -15,18 +15,27 @@
 <a href="/"><h1>Servlet Library</h1></a>
 <hr>
 <center>
-    <form action="authorForm" method="post">
+    <form action="/<c:out value="${action}"/>" method="post">
+
+        <c:if test="${action eq 'authorEdit'}">
+            <input type="hidden" value="<c:out value="${id}"/>" name="id">
+        </c:if>
+
+        <c:if test="${ not empty errore}">
+            <c:out value="${errore}"/>
+        </c:if>
+
         <table width="50%">
             <tr>
                 <td colspan="2"><h2>New author</h2></td>
             </tr>
             <tr>
                 <td width="25%">Firstname:</td>
-                <td><input style="width: 100%" type="text" name="firstname"></td>
+                <td><input style="width: 100%" type="text" name="firstname" value="<c:out value="${firstname}"/>"></td>
             </tr>
             <tr>
                 <td width="25%">Lastname:</td>
-                <td><input style="width: 100%" type="text" name="lastname"></td>
+                <td><input style="width: 100%" type="text" name="lastname" value="<c:out value="${lastname}"/>"></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -37,13 +46,6 @@
         </table>
     </form>
 </center>
-<hr>
-<h2>Errori</h2>
-<ul>
-    <li>Errore 1</li>
-    <li>Errore 1</li>
-    <li>Errore 1</li>
-</ul>
 
 </body>
 </html>
