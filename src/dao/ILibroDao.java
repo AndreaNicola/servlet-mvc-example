@@ -4,7 +4,13 @@ import models.Libro;
 
 import java.util.Collection;
 
-public interface ILibroDao extends IDao<Libro> {
+public interface ILibroDao {
+
+    Collection<Libro> list();
+
+    Libro get(Long id);
+
+    void delete(Long id);
 
     void create(Libro libro, Collection<Long> generi);
 

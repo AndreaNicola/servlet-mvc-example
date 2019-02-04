@@ -11,10 +11,12 @@ import java.io.IOException;
 public class BookEditServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO complete for exercise
         request.getRequestDispatcher("/WEB-INF/jsp/form/bookForm.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO complete for exercise
         request.getRequestDispatcher("/WEB-INF/jsp/form/bookForm.jsp").forward(request, response);
     }
 }

@@ -11,11 +11,12 @@ import java.io.IOException;
 public class GenreInsertServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO complete for exercise
         request.getRequestDispatcher("/WEB-INF/jsp/form/genreForm.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        // TODO complete for exercise
         request.getRequestDispatcher("/WEB-INF/jsp/form/genreForm.jsp").forward(request, response);
     }
 

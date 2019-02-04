@@ -28,21 +28,18 @@ public class AuthorEditServlet extends HttpServlet {
             response.sendRedirect("/");
         } catch (Exception e) {
             String errore = e.getMessage() == null || e.getMessage().isEmpty() ? "Errore inatteso" : e.getMessage();
-            request.setAttribute("action", "authorEdit");
             request.setAttribute("errore", errore);
+            request.setAttribute("action", "authorEdit");
             request.setAttribute("id", id);
             request.setAttribute("firstname", firstname);
             request.setAttribute("lastname", lastname);
-
             request.getRequestDispatcher("/WEB-INF/jsp/form/authorForm.jsp").forward(request, response);
         }
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         Long id = Long.parseLong(request.getParameter("id"));
-
         Autore autore = I_AUTORE_SERVICE.get(id);
         request.setAttribute("id", autore.getId());
         request.setAttribute("firstname", autore.getNome());

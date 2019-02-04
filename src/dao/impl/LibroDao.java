@@ -80,40 +80,6 @@ public class LibroDao extends AbstractDao implements ILibroDao {
     }
 
     @Override
-    public void create(Libro book) {
-        try (
-                Connection c = getConnection();
-                PreparedStatement ps1 = c.prepareStatement(INSERT)
-        ) {
-            ps1.setLong(1, nextId(c, NEXT_ID_LIBRO) + 1);
-            ps1.setString(2, book.getTitolo());
-            ps1.setString(3, book.getDescrizione());
-            ps1.setLong(4, book.getAutoreId());
-            ps1.executeUpdate();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void update(Libro book) {
-        try (
-                Connection c = getConnection();
-                PreparedStatement ps = c.prepareStatement(UPDATE)
-        ) {
-            ps.setString(1, book.getTitolo());
-            ps.setString(2, book.getDescrizione());
-            ps.setLong(3, book.getAutoreId());
-            ps.setLong(4, book.getId());
-            ps.executeUpdate();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @Override
     public void delete(Long id) {
 
         try (
