@@ -2,6 +2,7 @@ package controllers.insert;
 
 import dao.FactoryDao;
 import dao.IAutoreDao;
+import dao.ILibroDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class BookInsertServlet extends HttpServlet {
 
     private static final IAutoreDao I_AUTORE_DAO = FactoryDao.getiAutoreDao();
-    private static final I
+    private static final ILibroDao I_LIBRO_DAO = FactoryDao.getiLibroDao();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

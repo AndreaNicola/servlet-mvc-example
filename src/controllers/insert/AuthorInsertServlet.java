@@ -25,7 +25,7 @@ public class AuthorInsertServlet extends HttpServlet {
             I_AUTORE_SERVICE.insert(firstname, lastname);
             response.sendRedirect("/");
         } catch (Exception e) {
-            String errore = e.getMessage() == null || e.getMessage().isBlank() ? "Errore inatteso" : e.getMessage();
+            String errore = e.getMessage() == null || e.getMessage().isEmpty() ? "Errore inatteso" : e.getMessage();
             request.setAttribute("action", "authorInsert");
             request.setAttribute("errore", errore);
             request.setAttribute("firstname", firstname);
