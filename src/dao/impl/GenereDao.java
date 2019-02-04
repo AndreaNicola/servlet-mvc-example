@@ -79,7 +79,7 @@ public class GenereDao extends AbstractDao implements IGenereDao {
                 Connection c = getConnection();
                 PreparedStatement ps = c.prepareStatement(INSERT)
         ) {
-            ps.setLong(1, nextId(NEXT_ID));
+            ps.setLong(1, nextId(c,NEXT_ID) );
             ps.setString(2, genre.getNome());
             ps.executeUpdate();
         } catch (Exception e) {
@@ -149,5 +149,6 @@ public class GenereDao extends AbstractDao implements IGenereDao {
             result.add(genere);
         }
     }
+
 }
 

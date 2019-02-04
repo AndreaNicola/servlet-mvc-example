@@ -27,7 +27,7 @@ public class AuthorEditServlet extends HttpServlet {
             I_AUTORE_SERVICE.update(id, firstname, lastname);
             response.sendRedirect("/");
         } catch (Exception e) {
-            String errore = e.getMessage() == null || e.getMessage().isBlank() ? "Errore inatteso" : e.getMessage();
+            String errore = e.getMessage() == null || e.getMessage().isEmpty() ? "Errore inatteso" : e.getMessage();
             request.setAttribute("action", "authorEdit");
             request.setAttribute("errore", errore);
             request.setAttribute("id", id);

@@ -85,7 +85,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
                 Connection c = getConnection();
                 PreparedStatement ps1 = c.prepareStatement(INSERT)
         ) {
-            ps1.setLong(1, nextId(NEXT_ID_LIBRO));
+            ps1.setLong(1, nextId(c, NEXT_ID_LIBRO) + 1);
             ps1.setString(2, book.getTitolo());
             ps1.setString(3, book.getDescrizione());
             ps1.setLong(4, book.getAutoreId());
@@ -142,7 +142,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
             ps1 = c.prepareStatement(INSERT);
             ps2 = c.prepareStatement(ADD_LIBRO_GENERE);
 
-            long nextId = nextId(NEXT_ID_LIBRO);
+            long nextId = nextId(c, NEXT_ID_LIBRO);
 
             ps1.setLong(1, nextId);
             ps1.setString(2, libro.getTitolo());
@@ -152,7 +152,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
 
             for (Long g : generi) {
 
-                long nextLibroGenereId = nextId(NEXT_ID_LIBRO_GENERE);
+                long nextLibroGenereId = nextId(c, NEXT_ID_LIBRO_GENERE);
 
                 ps2.setLong(1, nextLibroGenereId);
                 ps2.setLong(2, nextId);
@@ -228,7 +228,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
 
             for (Long g : generi) {
 
-                long nextLibroGenereId = nextId(NEXT_ID_LIBRO_GENERE);
+                long nextLibroGenereId = nextId(c, NEXT_ID_LIBRO_GENERE);
 
                 ps3.setLong(1, nextLibroGenereId);
                 ps3.setLong(2, libro.getId());
@@ -284,7 +284,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
         }
     }
 
-    private Collection<Libro> listByFk(String sql, Long fk){
+    private Collection<Libro> listByFk(String sql, Long fk) {
         Collection<Libro> result = new ArrayList<>();
         ResultSet rs;
         try (
@@ -306,7 +306,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
     @Override
     public Collection<Libro> listByAutore(Long autoreId) {
         String LIST_BY_AUTORE = LIST + " where autore_id=?";
-        return listByFk(LIST_BY_AUTORE,autoreId);
+        return listByFk(LIST_BY_AUTORE, autoreId);
     }
 
     @Override
@@ -314,7 +314,7 @@ public class LibroDao extends AbstractDao implements ILibroDao {
         String LIST_BY_GENERE = "select id, titolo, descrizione, autore_id from libro where id in (select libro_id " +
                 "from " +
                 "libro_genere where genere_id = ?)";
-        return listByFk(LIST_BY_GENERE,genereId);
+        return listByFk(LIST_BY_GENERE, genereId);
     }
 
     private void getElements(ResultSet rs, Collection<Libro> result) throws Exception {

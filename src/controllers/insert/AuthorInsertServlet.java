@@ -26,12 +26,10 @@ public class AuthorInsertServlet extends HttpServlet {
             response.sendRedirect("/");
         } catch (Exception e) {
             String errore = e.getMessage() == null || e.getMessage().isEmpty() ? "Errore inatteso" : e.getMessage();
-            request.setAttribute("action", "authorInsert");
             request.setAttribute("errore", errore);
             request.setAttribute("firstname", firstname);
             request.setAttribute("lastname", lastname);
-
-            request.getRequestDispatcher("/WEB-INF/jsp/form/authorForm.jsp").forward(request, response);
+            this.doGet(request,response);
         }
 
     }

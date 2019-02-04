@@ -85,7 +85,7 @@ public class AutoreDao extends AbstractDao implements IAutoreDao {
                 Connection c = getConnection();
                 PreparedStatement ps = c.prepareStatement(INSERT)
         ) {
-            ps.setLong(1, nextId(NEXT_ID));
+            ps.setLong(1,  nextId(c,NEXT_ID));
             ps.setString(2, author.getNome());
             ps.setString(3, author.getCognome());
             ps.executeUpdate();

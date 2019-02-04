@@ -19,10 +19,10 @@ abstract class AbstractDao {
         }
     }
 
-    Long nextId(String sql) {
+    Long nextId(Connection connection, String sql) {
+
         Long result = 1l;
-        try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
+        try (PreparedStatement ps = connection.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()
         ) {
             while (rs.next()) {
@@ -32,7 +32,7 @@ abstract class AbstractDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return result;
 
     }
